@@ -1,26 +1,23 @@
 Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
-Version:	1.8.10
+Version:	1.10.0
 Release:	1
 License:	LGPL v3
 Group:		Libraries
 Source0:	http://cairographics.org/releases/pycairo-%{version}.tar.bz2
-# Source0-md5:	ddc544943d791e3c22ca8f019e10e1e3
+# Source0-md5:	e6fd3f2f1e6a72e0db0868c4985669c5
 URL:		http://cairographics.org/
-BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.9.6
-BuildRequires:	cairo-devel >= 1.8.10
-BuildRequires:	libtool >= 2:1.4
+BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 3.1
 BuildRequires:	python3-devel >= 3.1
 # for tests only
 #BuildRequires:	python-numpy
-# not release yet
+# not released yet
 #BuildRequires:	python-xpyb >= 1.3
 BuildRequires:	rpm-pythonprov
-Requires:	cairo >= 1.8.10
+Requires:	cairo >= 1.10.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,7 +31,7 @@ Summary:	Development files for pycairo
 Summary(pl.UTF-8):	Pliki programistyczne pycairo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cairo-devel >= 1.8.10
+Requires:	cairo-devel >= 1.10.0
 
 %description devel
 Development files for pycairo.
@@ -63,11 +60,11 @@ CXX="%{__cxx}" \
 CPP="%{__cpp}" \
 CFLAGS="%{rpmcflags}" \
 CXXFLAGS="%{rpmcxxflags}" \
+PYTHON="%{_bindir}/python3" \
 PYTHONDIR="%{py3_sitedir}" \
 python3 ./waf %{?_smp_mflags} configure \
 	--prefix=%{_prefix}
 
-#LIB="%{_lib}" \
 python3 ./waf build
 
 %install
@@ -84,7 +81,6 @@ python3 ./waf install \
 
 cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-#rm $RPM_BUILD_ROOT%{py3_sitedir}/cairo/*.{la,py}
 %py3_postclean
 
 %clean
@@ -94,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README
 %dir %{py3_sitedir}/cairo
-%attr(755,root,root) %{py3_sitedir}/cairo/_cairo.so
+%attr(755,root,root) %{py3_sitedir}/cairo/_cairo.cpython-*.so
 %{py3_sitedir}/cairo/__init__.py[co]
 
 %files devel
