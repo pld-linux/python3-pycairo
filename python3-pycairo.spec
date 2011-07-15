@@ -1,8 +1,12 @@
+#
+# TODO:
+#  - check why the modules are not compiled to __pycache__
+
 Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
 Version:	1.10.0
-Release:	1
+Release:	2
 License:	LGPL v3
 Group:		Libraries
 Source0:	http://cairographics.org/releases/pycairo-%{version}.tar.bz2
@@ -63,6 +67,7 @@ CXXFLAGS="%{rpmcxxflags}" \
 PYTHON="%{_bindir}/python3" \
 PYTHONDIR="%{py3_sitedir}" \
 python3 ./waf %{?_smp_mflags} configure \
+	--libdir=%{_libdir} \
 	--prefix=%{_prefix}
 
 python3 ./waf build
@@ -74,14 +79,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}
 python3 ./waf install \
 	--destdir=$RPM_BUILD_ROOT
 
-%if "%{_lib}" != "lib"
-	install -d $RPM_BUILD_ROOT%{_pkgconfigdir}
-	mv $RPM_BUILD_ROOT%{_prefix}/lib/pkgconfig/*.pc $RPM_BUILD_ROOT%{_pkgconfigdir}
-%endif
-
 cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-
-%py3_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,7 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING NEWS README
 %dir %{py3_sitedir}/cairo
 %attr(755,root,root) %{py3_sitedir}/cairo/_cairo.cpython-*.so
-%{py3_sitedir}/cairo/__init__.py[co]
+%{py3_sitedir}/cairo/*.py
+%{py3_sitedir}/cairo/*.py[co]
 
 %files devel
 %defattr(644,root,root,755)
