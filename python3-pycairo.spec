@@ -1,16 +1,13 @@
-#
-# TODO:
-#  - check why the modules are not compiled to __pycache__
-
 Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
 Version:	1.10.0
-Release:	3
+Release:	4
 License:	LGPL v3
 Group:		Libraries
 Source0:	http://cairographics.org/releases/pycairo-%{version}.tar.bz2
 # Source0-md5:	e6fd3f2f1e6a72e0db0868c4985669c5
+Patch0:		pycairo-setup.patch
 URL:		http://cairographics.org/
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	pkgconfig
@@ -57,27 +54,19 @@ Przykładowe programy w Pythonie używające Cairo.
 
 %prep
 %setup -q -n pycairo-%{version}
+%patch0 -p1
 
 %build
-CC="%{__cc}" \
-CXX="%{__cxx}" \
-CPP="%{__cpp}" \
-CFLAGS="%{rpmcflags}" \
-CXXFLAGS="%{rpmcxxflags}" \
-PYTHON="%{_bindir}/python3" \
-PYTHONDIR="%{py3_sitedir}" \
-python3 ./waf %{?_smp_mflags} configure \
-	--libdir=%{_libdir} \
-	--prefix=%{_prefix}
-
-python3 ./waf build
+%{__python3} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}
 
-python3 ./waf install \
-	--destdir=$RPM_BUILD_ROOT
+%{__python3} setup.py install \
+	--skip-build \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 
 cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -90,7 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitedir}/cairo
 %attr(755,root,root) %{py3_sitedir}/cairo/_cairo.cpython-*.so
 %{py3_sitedir}/cairo/*.py
-%{py3_sitedir}/cairo/*.py[co]
+%{py3_sitedir}/cairo/__pycache__
+%{py3_sitedir}/pycairo-%{version}-py*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
