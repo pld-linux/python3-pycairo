@@ -56,6 +56,10 @@ Przykładowe programy w Pythonie używające Cairo.
 %setup -q -n pycairo-%{version}
 %patch0 -p1
 
+%ifarch x32
+%{__sed} -i -e 's/lib64/libx32/g' setup.py
+%endif
+
 %build
 %{__python3} setup.py build
 
