@@ -61,16 +61,13 @@ Przykładowe programy w Pythonie używające Cairo.
 %endif
 
 %build
-%{__python3} setup.py build
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}
 
-%{__python3} setup.py install \
-	--skip-build \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py3_install
 
 cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
