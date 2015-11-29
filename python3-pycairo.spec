@@ -9,6 +9,7 @@ Source0:	http://cairographics.org/releases/pycairo-%{version}.tar.bz2
 # Source0-md5:	e6fd3f2f1e6a72e0db0868c4985669c5
 Patch0:		pycairo-setup.patch
 URL:		http://cairographics.org/
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 3.1
