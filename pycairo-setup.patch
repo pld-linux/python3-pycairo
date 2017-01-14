@@ -125,7 +125,7 @@ diff -urN pycairo-1.10.0.orig/setup.py pycairo-1.10.0/setup.py
 +  data_files = [ 
 +    ('include/pycairo', ['src/py3cairo.h']),
 +    (LIBDIR + '/pkgconfig', [pkgconfig_file]),
-+    (os.path.join(dsy.get_python_lib(True, False), 'cairo'),
++    (os.path.join(dsy.get_python_lib(True, False, prefix=sys.prefix), 'cairo'),
 +     ['src/__init__.py']),
 +    ],
 +  )
