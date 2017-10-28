@@ -1,16 +1,15 @@
 Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
-Version:	1.10.0
-Release:	10
+Version:	1.15.3
+Release:	1
 License:	LGPL v3
 Group:		Libraries
-Source0:	http://cairographics.org/releases/pycairo-%{version}.tar.bz2
-# Source0-md5:	e6fd3f2f1e6a72e0db0868c4985669c5
-Patch0:		pycairo-setup.patch
+Source0:	https://github.com/pygobject/pycairo/releases/download/v%{version}/pycairo-%{version}.tar.gz
+# Source0-md5:	7390cd413271fe5569f6eef73d72bf7a
 URL:		http://cairographics.org/
 BuildRequires:	rpmbuild(macros) >= 1.710
-BuildRequires:	cairo-devel >= 1.10.0
+BuildRequires:	cairo-devel >= 1.13.1
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 3.1
 BuildRequires:	python3-devel >= 3.1
@@ -19,7 +18,7 @@ BuildRequires:	python3-devel >= 3.1
 # not released yet
 #BuildRequires:	python-xpyb >= 1.3
 BuildRequires:	rpm-pythonprov
-Requires:	cairo >= 1.10.0
+Requires:	cairo >= 1.13.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -33,7 +32,7 @@ Summary:	Development files for pycairo
 Summary(pl.UTF-8):	Pliki programistyczne pycairo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cairo-devel >= 1.10.0
+Requires:	cairo-devel >= 1.13.1
 
 %description devel
 Development files for pycairo.
@@ -55,7 +54,6 @@ Przykładowe programy w Pythonie używające Cairo.
 
 %prep
 %setup -q -n pycairo-%{version}
-%patch0 -p1
 
 %ifarch x32
 %{__sed} -i -e 's/lib64/libx32/g' setup.py
@@ -77,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING NEWS README
+%doc COPYING NEWS README.rst
 %dir %{py3_sitedir}/cairo
 %attr(755,root,root) %{py3_sitedir}/cairo/_cairo.cpython-*.so
 %{py3_sitedir}/cairo/*.py
@@ -87,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/pycairo
-%{_pkgconfigdir}/py3cairo.pc
+%{_npkgconfigdir}/py3cairo.pc
 
 %files examples
 %defattr(644,root,root,755)
