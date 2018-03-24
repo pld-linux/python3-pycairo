@@ -1,12 +1,12 @@
 Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
-Version:	1.15.3
+Version:	1.16.3
 Release:	1
 License:	LGPL v3
 Group:		Libraries
 Source0:	https://github.com/pygobject/pycairo/releases/download/v%{version}/pycairo-%{version}.tar.gz
-# Source0-md5:	7390cd413271fe5569f6eef73d72bf7a
+# Source0-md5:	d2a115037ccd128219f43d5ed3df7926
 URL:		http://cairographics.org/
 BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	cairo-devel >= 1.13.1
@@ -78,14 +78,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING NEWS README.rst
 %dir %{py3_sitedir}/cairo
 %attr(755,root,root) %{py3_sitedir}/cairo/_cairo.cpython-*.so
-%{py3_sitedir}/cairo/*.py
+%{py3_sitedir}/cairo/*.py*
 %{py3_sitedir}/cairo/__pycache__
+%{py3_sitedir}/cairo/include
 %{py3_sitedir}/pycairo-%{version}-py*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/pycairo
-%{_npkgconfigdir}/py3cairo.pc
+%{_pkgconfigdir}/py3cairo.pc
 
 %files examples
 %defattr(644,root,root,755)
