@@ -2,7 +2,7 @@ Summary:	Python 3.x Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3.x dla Cairo
 Name:		python3-pycairo
 Version:	1.16.3
-Release:	1
+Release:	2
 License:	LGPL v3
 Group:		Libraries
 Source0:	https://github.com/pygobject/pycairo/releases/download/v%{version}/pycairo-%{version}.tar.gz
