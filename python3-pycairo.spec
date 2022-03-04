@@ -6,7 +6,7 @@
 %define		module	pycairo
 Summary:	Python 3 Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3 dla Cairo
-Name:		python-%{module}
+Name:		python3-%{module}
 Version:	1.20.1
 Release:	1
 License:	LGPL v2.1 or MPL v1.1
