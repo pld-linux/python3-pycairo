@@ -7,18 +7,19 @@
 Summary:	Python 3 Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3 dla Cairo
 Name:		python-%{module}
-Version:	1.18.2
+Version:	1.20.1
 Release:	1
 License:	LGPL v2.1 or MPL v1.1
 Group:		Libraries/Python
 #Source0Download: https://github.com/pygobject/pycairo/releases
 Source0:	https://github.com/pygobject/pycairo/releases/download/v%{version}/%{module}-%{version}.tar.gz
-# Source0-md5:	be2ba51f234270dec340f28f1695a95e
+# Source0-md5:	fa88a28cadbfb34192fe743d32c0ee33
 URL:		https://www.cairographics.org/
-BuildRequires:	cairo-devel >= 1.13.1
+BuildRequires:	cairo-devel >= 1.15.10
 BuildRequires:	pkgconfig
-BuildRequires:	python3 >= 1:3.4
-BuildRequires:	python3-devel >= 1:3.4
+BuildRequires:	python3 >= 1:3.6
+BuildRequires:	python3-devel >= 1:3.6
+BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-hypothesis
 BuildRequires:	python3-numpy
@@ -31,8 +32,8 @@ BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	python3-Sphinx
 BuildRequires:	python3-sphinx_rtd_theme
 %endif
-Requires:	python3-libs >= 1:3.4
-Requires:	cairo >= 1.13.1
+Requires:	python3-libs >= 1:3.6
+Requires:	cairo >= 1.15.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,8 +47,8 @@ Summary:	Development files for Python 3 pycairo
 Summary(pl.UTF-8):	Pliki programistyczne pycairo dla Pythona 3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cairo-devel >= 1.13.1
-Requires:	python3-devel >= 1:3.4
+Requires:	cairo-devel >= 1.15.10
+Requires:	python3-devel >= 1:3.6
 
 %description devel
 Development files for Python 3 pycairo.
