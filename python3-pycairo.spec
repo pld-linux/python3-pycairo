@@ -8,7 +8,7 @@ Summary:	Python 3 Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3 dla Cairo
 Name:		python3-%{module}
 Version:	1.20.1
-Release:	1
+Release:	2
 License:	LGPL v2.1 or MPL v1.1
 Group:		Libraries/Python
 #Source0Download: https://github.com/pygobject/pycairo/releases
