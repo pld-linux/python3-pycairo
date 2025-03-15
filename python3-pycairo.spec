@@ -7,19 +7,19 @@
 Summary:	Python 3 Cairo bindings
 Summary(pl.UTF-8):	Dowiązania Pythona 3 dla Cairo
 Name:		python3-%{module}
-Version:	1.20.1
-Release:	4
+Version:	1.27.0
+Release:	1
 License:	LGPL v2.1 or MPL v1.1
 Group:		Libraries/Python
 #Source0Download: https://github.com/pygobject/pycairo/releases
 Source0:	https://github.com/pygobject/pycairo/releases/download/v%{version}/%{module}-%{version}.tar.gz
-# Source0-md5:	fa88a28cadbfb34192fe743d32c0ee33
+# Source0-md5:	12097575a1bb683cab7dc425d9769a68
 URL:		https://www.cairographics.org/
 BuildRequires:	cairo-devel >= 1.15.10
+BuildRequires:	meson
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3.6
 BuildRequires:	python3-devel >= 1:3.6
-BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-hypothesis
 BuildRequires:	python3-numpy
@@ -84,7 +84,15 @@ Przykładowe programy w Pythonie używające Cairo.
 %setup -q -n pycairo-%{version}
 
 %build
-%py3_build %{?with_tests:test}
+%meson
+%meson_build
+
+%if %{with tests}
+# use explicit plugins list for reliable builds (delete PYTEST_PLUGINS if empty)
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS= \
+%{__python3} -m pytest build/tests
+%endif
 
 %if %{with doc}
 %{__make} -C docs
@@ -94,7 +102,7 @@ Przykładowe programy w Pythonie używające Cairo.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}
 
-%py3_install
+%meson_install
 
 cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -111,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/cairo/__pycache__
 %{py3_sitedir}/cairo/include
 %{py3_sitedir}/cairo/py.typed
-%{py3_sitedir}/pycairo-%{version}-py*.egg-info
+%{py3_sitedir}/pycairo-%{version}.dist-info
 
 %files devel
 %defattr(644,root,root,755)
